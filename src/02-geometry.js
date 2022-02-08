@@ -1,4 +1,5 @@
 import * as THREE from "../node_modules/three/build/three.module.js";
+import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 class App {
   constructor() {
@@ -17,6 +18,7 @@ class App {
     this._setupCamera();
     this._setupLight();
     this._setupModel();
+    this._setupControls(); // 마우스로 컨트롤하는 메서드
 
     window.onresize = this.resize.bind(this); // 창크기가 변경되면 설정값을 재설정해야된다. this가 이벤트 객체가 아닌 App클래스를 가르키도록 bind메서드 사용
     this.resize();
@@ -44,12 +46,20 @@ class App {
   _setupModel() {
     // 파란색 정육면체 객체 Mesh를 생성
     const geometry = new THREE.BoxGeometry(1, 1, 1); // 형상정의 (가로, 세로, 깊이)
-    const material = new THREE.MeshPhongMaterial({ color: 0x44a88 });
+    const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+    const cube = new THREE.Mesh(geometry, fillMaterial);
 
-    const cube = new THREE.Mesh(geometry, material);
+    const lineMaterial = new THREE.LineBasicMaterial({color:0xffff00});
+    const line = new THREE.LineSegments( // WireframeGeometry 골격 꼭지점을 알게 해주는듯?
+      new THREE.WireframeGeometry(geometry), lineMaterial
+    )
 
-    this._scene.add(cube);
-    this._cube = cube;
+    const group = new THREE.Group();
+    group.add(cube);
+    group.add(line);
+
+    this._scene.add(group);
+    this._cube = group;
   }
 
   resize() {
@@ -71,8 +81,8 @@ class App {
 
   update(time){
       time *= 0.001 // milliSecond => second
-      this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
-      this._cube.rotation.y = time;
+      // this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
+      // this._cube.rotation.y = time;
   }
 }
 
