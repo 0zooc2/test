@@ -1,5 +1,6 @@
 import * as THREE from "../node_modules/three/build/three.module.js";
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
+// import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 
 class App {
   constructor() {
@@ -26,6 +27,10 @@ class App {
     requestAnimationFrame(this.render.bind(this));
   }
 
+  _setupControls() {
+    new OrbitControls(this._camera, this._divEl); // control객체는 camera객체와 dom요소를 인자로 받는다. 
+  }
+
   _setupCamera() {
     const width = this._divEl.clientWidth;
     const height = this._divEl.clientHeight;
@@ -45,7 +50,7 @@ class App {
 
   _setupModel() {
     // 파란색 정육면체 객체 Mesh를 생성
-    const geometry = new THREE.BoxGeometry(1, 1, 1); // 형상정의 (가로, 세로, 깊이)
+    const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2); // 형상정의 (가로, 세로, 깊이, 각각에 대한 분할 수 .. 지정 안하면 기본값은 1이다.)
     const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
     const cube = new THREE.Mesh(geometry, fillMaterial);
 
@@ -81,8 +86,8 @@ class App {
 
   update(time){
       time *= 0.001 // milliSecond => second
-      // this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
-      // this._cube.rotation.y = time;
+      this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
+      this._cube.rotation.y = time;
   }
 }
 
