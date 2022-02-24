@@ -33,7 +33,7 @@ Geometry는 3차원 오브젝트의 형상을 정의하는 것을 의미하며, 
 - BoxGeometry
 - CircleGeometry
 - ConeGeometry
-- CtlinderGeometry
+- CylinderGeometry
 - TorusKnotGeometry
 - SphereGeometry
 - RingGeometry
