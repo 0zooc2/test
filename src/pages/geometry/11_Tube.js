@@ -1,15 +1,13 @@
-import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls';
-import * as THREE from 'three/build/three.module';
-// import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-class App {
-	constructor() {
-		const divEl = document.getElementById('gl');
-		this._divEl = divEl;
+export default class Tube {
+	constructor($target) {
+		this._divEl = $target;
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true }); // 안티엘리어싱 true
 		renderer.setPixelRatio(window.devicePixelRatio); // 픽셀비율 설정
-		divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
+		this._divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
 
 		this._renderer = renderer;
 
@@ -35,7 +33,7 @@ class App {
 		const width = this._divEl.clientWidth;
 		const height = this._divEl.clientHeight;
 		const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 100); // 카메라 객체 생성
-		camera.position.z = 2;
+		camera.position.z = 15; // 카메라 시점 위치 멀리 보내기
 		this._camera = camera;
 	}
 
@@ -49,13 +47,29 @@ class App {
 	}
 
 	_setupModel() {
-		// 파란색 정육면체 객체 Mesh를 생성
-		const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2); // 형상정의 (가로, 세로, 깊이, 각각에 대한 분할 수 .. 지정 안하면 기본값은 1이다.)
+		class CustomSinCurve extends THREE.Curve {
+			constructor(scale) {
+				super();
+				this.scale = scale;
+			}
+
+			getPoint(t) {
+				const tx = t * 3 - 1.5;
+				const ty = Math.sin(2 * Math.PI * t);
+				const tz = 0;
+
+				return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+			}
+		}
+
+		const path = new CustomSinCurve(4);
+
+		const geometry = new THREE.TubeGeometry(path, 40, 0.8, 12, true); // path, tube진행방향에 대한 분할수: 64, 원통에 대한 반지름 크기: 1, 원통에 대한 분할 수: 8, 원통의 끝을 닫을것인지: false <-가운데 전체가 생겨버림;;
 		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
 		const cube = new THREE.Mesh(geometry, fillMaterial);
 
 		const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-		const line = new THREE.LineSegments( // WireframeGeometry 골격 꼭지점을 알게 해주는듯?
+		const line = new THREE.LineSegments(
 			new THREE.WireframeGeometry(geometry),
 			lineMaterial,
 		);
@@ -79,19 +93,8 @@ class App {
 		this._renderer.setSize(width, height);
 	}
 
-	render(ms) {
+	render() {
 		this._renderer.render(this._scene, this._camera); // scene을 camera의 시점을 이용해서 렌더링하라는 내용?
-		this.update(ms); // 속성값의 변경을 통해 애니메이션을 만들어낸다.
 		requestAnimationFrame(this.render.bind(this));
 	}
-
-	update(time) {
-		time *= 0.001; // milliSecond => second
-		this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
-		this._cube.rotation.y = time;
-	}
 }
-
-window.onload = function () {
-	new App();
-};

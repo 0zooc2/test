@@ -1,13 +1,12 @@
-import * as THREE from 'three/build/three.module';
+import * as THREE from 'three';
 
-class App {
-	constructor() {
-		const divEl = document.getElementById('gl');
-		this._divEl = divEl;
+export default class Box {
+	constructor($target) {
+		this._divEl = $target;
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true }); // 안티엘리어싱 true
 		renderer.setPixelRatio(window.devicePixelRatio); // 픽셀비율 설정
-		divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
+		this._divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
 
 		this._renderer = renderer;
 
@@ -75,7 +74,3 @@ class App {
 		this._cube.rotation.y = time;
 	}
 }
-
-window.onload = function () {
-	new App();
-};

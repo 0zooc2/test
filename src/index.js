@@ -1,3 +1,3 @@
 import App from './App';
 
-new App({ $target: document.getElementById('root') }).init();
+new App(document.getElementById('root')).init();

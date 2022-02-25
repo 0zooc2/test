@@ -7,6 +7,12 @@ module.exports = {
 	plugins: ['prettier'],
 	rules: {
 		'import/no-unresolved': 'off',
+		'no-underscore-dangle': 'off', // ['error', { allowAfterThis: true }],
+		'max-classes-per-file': 'off', // ['error', { ignoreExpressions: true, max: 2 }],
+		'global-require': 'off',
+		'no-new': 0,
+		'no-param-reassign': 0,
+		'no-plusplus': 'off', // no-plusplus: ["error", { "allowForLoopAfterthoughts": true }]
 		'prettier/prettier': [
 			'error',
 			{

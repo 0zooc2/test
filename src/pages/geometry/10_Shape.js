@@ -1,15 +1,14 @@
-import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls';
-import * as THREE from 'three/build/three.module';
-// import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-class App {
-	constructor() {
-		const divEl = document.getElementById('gl');
-		this._divEl = divEl;
+// 2차원 평면을 위한 클래스
+export default class Shape {
+	constructor($target) {
+		this._divEl = $target;
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true }); // 안티엘리어싱 true
 		renderer.setPixelRatio(window.devicePixelRatio); // 픽셀비율 설정
-		divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
+		this._divEl.appendChild(renderer.domElement); // 위에서 세팅해서 생성한 domElement를 자식으로 추가
 
 		this._renderer = renderer;
 
@@ -35,7 +34,7 @@ class App {
 		const width = this._divEl.clientWidth;
 		const height = this._divEl.clientHeight;
 		const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 100); // 카메라 객체 생성
-		camera.position.z = 2;
+		camera.position.z = 15; // 카메라 시점 위치 멀리 보내기
 		this._camera = camera;
 	}
 
@@ -48,9 +47,53 @@ class App {
 		this._scene.add(light);
 	}
 
+	// _setupModel() {
+	// 	const shape = new THREE.Shape();
+	// 	/*
+	// 	사각형 그리기
+	// 	shape.moveTo(1, 1); // 시작점으로 이동
+	// 	shape.lineTo(1, -1); // 선긋기
+	// 	shape.lineTo(-1, -1);
+	// 	shape.lineTo(-1, 1);
+	// 	shape.closePath(); // 도형그리기 종료
+	// 	*/
+
+	// 	const x = -2.5;
+	// 	const y = -5;
+
+	// 	shape.moveTo(x + 2.5, y + 2.5);
+	// 	shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+	// 	shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
+	// 	shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
+	// 	shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
+	// 	shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+	// 	shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
+
+	// 	const geometry = new THREE.BufferGeometry();
+	// 	const points = shape.getPoints();
+	// 	geometry.setFromPoints(points);
+
+	// 	const material = new THREE.LineBasicMaterial({ color: 0xffff00 });
+	// 	const line = new THREE.Line(geometry, material);
+
+	// 	this._scene.add(line);
+	// }
+
 	_setupModel() {
-		// 파란색 정육면체 객체 Mesh를 생성
-		const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2); // 형상정의 (가로, 세로, 깊이, 각각에 대한 분할 수 .. 지정 안하면 기본값은 1이다.)
+		const shape = new THREE.Shape();
+
+		const x = -2.5;
+		const y = -5;
+
+		shape.moveTo(x + 2.5, y + 2.5);
+		shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+		shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
+		shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
+		shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
+		shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+		shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
+
+		const geometry = new THREE.ShapeGeometry(shape);
 		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
 		const cube = new THREE.Mesh(geometry, fillMaterial);
 
@@ -79,19 +122,8 @@ class App {
 		this._renderer.setSize(width, height);
 	}
 
-	render(ms) {
+	render() {
 		this._renderer.render(this._scene, this._camera); // scene을 camera의 시점을 이용해서 렌더링하라는 내용?
-		this.update(ms); // 속성값의 변경을 통해 애니메이션을 만들어낸다.
 		requestAnimationFrame(this.render.bind(this));
 	}
-
-	update(time) {
-		time *= 0.001; // milliSecond => second
-		this._cube.rotation.x = time; // cube의 x, y축 값을 변경시켜 회전하게 만든다.
-		this._cube.rotation.y = time;
-	}
 }
-
-window.onload = function () {
-	new App();
-};
