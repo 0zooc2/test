@@ -16,6 +16,7 @@ Three.js
     └── Camera
 
 ```
+3d오브젝트가 3차원 공간상에 놓여지려면 위치(position), 회전(rotation), 크기(scale) 값이 필요하다.
 
 ### Geometry
 ```
@@ -29,7 +30,7 @@ BufferGeometry
 
 // 이러한 데이터들은 실행될때 GPU에 한번에 넘겨져 빠르게 처리된다.
 ```
-Geometry는 3차원 오브젝트의 형상을 정의하는 것을 의미하며, 기본적으로 BufferGeometry를 상속받음
+*Geometry*는 3차원 오브젝트의 형상을 정의하는 것을 의미하며, 기본적으로 *BufferGeometry*를 상속받음
 - `BoxGeometry` (육면체) : 가로(1), 세로(1), 깊이(1)
 - `CircleGeometry` (원판) : 반지름 크기(1), 원판을 구성하는 분할 개수(8...이 값이 클수록 원과 가까워진다), 시작각도(0), 연장각도(2PI)
 - `ConeGeometry` (원뿔) : 밑면반지름의크기(1), 원뿔의 높이(1), 원불 둘레의 분할개수(8), 원뿔 높이에 대한 분할 개수(1), 원뿔 밑면의 개방여부(false), 시작각(0), 연장각(2PI)
@@ -70,3 +71,20 @@ for(let i=0; i<10;++i){
     - `OctahedronGeometry` : 8면체
     - `TetrahedronGeometry` : 4면체
 
+### Scene Graph
+3차원 공간에서의 장면구성을 뜻한다.
+
+### Material
+모든 재질은 *Material*클래스를 상속받는다.
+
+- `PointsMaterial`
+- `LineBasicMaterial`
+    - `LineDashMaterial` : *LineBasicMaterial*을 상속받는다.
+- `MeshBasicMaterial`
+- `MeshLambertMaterial`
+- `MeshPhongMaterial`
+- `MeshStandardMaterial`
+    - `MeshPhysicalMaterial` : *MeshStandardMaterial*을 상속받는다.
+- `MeshDepthMaterial`
+- `MeshNormalMaterial`
+- `MeshToonMaterial`

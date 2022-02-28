@@ -15,6 +15,7 @@ import Tube from './pages/geometry/11_Tube';
 import Lathe from './pages/geometry/12_Lathe';
 import Extrude from './pages/geometry/13_Extrude';
 import Text from './pages/geometry/14_Text';
+import SceneGraph from './pages/graph/scenegraph';
 
 class App {
 	constructor(target) {
@@ -75,6 +76,9 @@ class App {
 				break;
 			case '/text':
 				new Text(this.target);
+				break;
+			case '/scenegraph':
+				new SceneGraph(this.target);
 				break;
 
 			default:
