@@ -3,7 +3,7 @@
 npm i three
 ```
 
-### Three.js
+## Three.js
 ```
 Three.js
 └── Redenderer 
@@ -18,7 +18,7 @@ Three.js
 ```
 3d오브젝트가 3차원 공간상에 놓여지려면 위치(position), 회전(rotation), 크기(scale) 값이 필요하다.
 
-### Geometry
+## Geometry
 ```
 BufferGeometry
 ├── 정점(Vertex) : x,y,z 좌표 
@@ -71,10 +71,10 @@ for(let i=0; i<10;++i){
     - `OctahedronGeometry` : 8면체
     - `TetrahedronGeometry` : 4면체
 
-### Scene Graph
+## Scene Graph
 3차원 공간에서의 장면구성을 뜻한다.
 
-### Material
+## Material
 모든 재질은 *Material*클래스를 상속받는다.
 
 - `PointsMaterial`
