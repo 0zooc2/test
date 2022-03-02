@@ -1,4 +1,14 @@
 # Three.js
+
+> *npm start* or *yarn start*
+> 파일명은 *번호_클래스명.js*로 이루어져 있고
+> url주소는 *localhost:5000/클래스명* 입니다.
+
+How to Start
+```
+npm i three
+```
+
 ```
 Three.js
 └── Redenderer 
