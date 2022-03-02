@@ -1,11 +1,4 @@
-# WebGL
-```
-npm i three
-```
-
-<br/>
-
-## Three.js
+# Three.js
 ```
 Three.js
 └── Redenderer 
