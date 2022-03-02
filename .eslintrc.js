@@ -13,6 +13,7 @@ module.exports = {
 		'no-new': 0,
 		'no-param-reassign': 0,
 		'no-plusplus': 'off', // no-plusplus: ["error", { "allowForLoopAfterthoughts": true }]
+		// 'class-methods-use-this': 'off',
 		'prettier/prettier': [
 			'error',
 			{

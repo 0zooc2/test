@@ -16,6 +16,8 @@ import Lathe from './pages/geometry/12_Lathe';
 import Extrude from './pages/geometry/13_Extrude';
 import Text from './pages/geometry/14_Text';
 import SceneGraph from './pages/graph/scenegraph';
+import Points from './pages/material/01_Points';
+import LineBasic from './pages/material/02_LineBasic';
 
 class App {
 	constructor(target) {
@@ -79,6 +81,12 @@ class App {
 				break;
 			case '/scenegraph':
 				new SceneGraph(this.target);
+				break;
+			case '/points':
+				new Points(this.target);
+				break;
+			case '/linebasic':
+				new LineBasic(this.target);
 				break;
 
 			default:
