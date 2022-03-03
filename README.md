@@ -1,8 +1,8 @@
 # Three.js
 
-> *npm start* or *yarn start* <br/>
-> 파일명은 *번호_클래스명.js*로 이루어져 있고 <br/>
-> url주소는 *localhost:5000/클래스명* 입니다. <br/>
+> *npm start* <br/>
+> 파일명은 \[ *번호_클래스명.js* \]로 이루어져 있고 <br/>
+> url주소는 \[ *localhost:5000/클래스명* \] 입니다. <br/>
 
 How to Start
 ```
