@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './src/index.js',
+	//entry: './src/index.js',
+	//entry: './src/practice.js',
+	entry: './src/script.js',
 	output: {
 		filename: 'main.js',
 		publicPath: '/',
@@ -12,7 +14,29 @@ module.exports = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
+				use: ['style-loader', 'css-loader',
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['@babel/preset-env'],
+							plugins: ['@babel/plugin-proposal-class-properties']
+						},
+					}
+					
+				],
+			},
+			{
+				test: /\.(glb|gltf)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							//publicPath: 'src/map/model',
+       						//sourceMap: true
+						},
+					}
+					
+				],
 			},
 		],
 	},
@@ -25,7 +49,9 @@ module.exports = {
 		static: {
 			directory: path.resolve(__dirname, 'dist'),
 		},
-		port: 5000,
+		allowedHosts: 'all',
+		port: 80,
 		historyApiFallback: true,
-	},
+		headers: {"Access-Control-Allow-Origin": "*"},
+	}
 };

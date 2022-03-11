@@ -3,6 +3,7 @@ import * as THREE from 'three';
 export default class Box {
 	constructor($target) {
 		this._divEl = $target;
+		console.log(this._divEl);
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true }); // 안티엘리어싱 true
 		renderer.setPixelRatio(window.devicePixelRatio); // 픽셀비율 설정

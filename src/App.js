@@ -19,11 +19,14 @@ import SceneGraph from './pages/graph/scenegraph';
 import Points from './pages/material/01_Points';
 import LineBasic from './pages/material/02_LineBasic';
 import MeshBasic from './pages/material/02_MeshBasic';
+import TestScript from './220303/220303_01';
 
 class App {
 	constructor(target) {
 		this.target = target;
 		this.pathname = window.location.pathname;
+		console.log(this.pathname);
+		console.log(this.target);
 	}
 
 	init() {
@@ -91,6 +94,9 @@ class App {
 				break;
 			case '/meshbasic':
 				new MeshBasic(this.target);
+				break;
+			case '/test':
+				new TestScript(this.target);
 				break;
 
 			default:
