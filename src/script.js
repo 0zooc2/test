@@ -1,33 +1,41 @@
 import { MainScript } from './builder.mjs';
-import { OriginMeshBuild } from './environment.mjs';
+import { EnvironmentBuild } from './environment.mjs';
+import { MouseControl } from './mouse.mjs';
+import { Animate } from './animate.mjs';
 
-//main components build
+
+// main components build
 const THREEobjects = window.THREEobjects = new MainScript();
-THREEobjects.SetCamera();
-THREEobjects.SetDynamicLight();
-THREEobjects.SetAxesHelper();
-window.addEventListener('resize', THREEobjects.onWindowResize, false);
+THREEobjects.SetAxesHelper(); // dev option
+
 
 // environment build
-OriginMeshBuild(THREEobjects);
+const environment = new EnvironmentBuild();
+environment.RendererCustomizing();
+environment.SceneCustomizing();
+environment.SetCamera();
+environment.SetLights();
+environment.MeshBuild();
 
-THREEobjects.Render();
+
+// controller
+MouseControl();
 
 
+// animate
+THREEobjects.animate = new Animate();
+
+
+// THREEobjects log
+console.log(THREEobjects);
+
+
+// traffic test
 /*
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-
-function animate() {
-    //requestAnimationFrame(animate)
-
-    controls.update()
-
-    renderer.render(scene, camera);
-    //renderer.render();
-
-    stats.update()
-}
-
-animate();
+var i = 0;
+var test1 = setInterval(() => {
+    THREEobjects.animate.Enqueue();
+    i++;
+    i > 500 && clearInterval(test1);
+}, 4);
 */

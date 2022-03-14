@@ -1,8 +1,8 @@
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-function OrbitControl() {
-    const controls = new OrbitControls(window.THREEobjects.camera, window.THREEobjects.renderer.domElement);
-    controls.enableDamping = true;
+function MouseControl() {
+    window.THREEobjects.controls = new OrbitControls(window.THREEobjects.camera, window.THREEobjects.renderer.domElement);
+    window.THREEobjects.controls.enableDamping = true;
 };
 
-export {OrbitControl};
+export {MouseControl};

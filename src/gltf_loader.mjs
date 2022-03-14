@@ -1,19 +1,15 @@
-async function LoadToScene(THREEobjects, target) {
-    return new Promise(function (resolve, reject) {
+function LoadToScene(THREEobjects, target, amount) {
+    THREEobjects.resolver = new Promise(function (resolve, reject) {
         THREEobjects.loader.load(target.modelingFile,
             (gltf) => {
                 THREEobjects.scene.add(gltf.scene.children[0]);
-                THREEobjects.renderer.render(THREEobjects.scene, THREEobjects.scene.children[0]); // 나중에 렌더함수 호출하는걸로
-                resolve();
+                target.THREEmesh = THREEobjects.scene.children[THREEobjects.scene.children.length - 1];
+                THREEobjects.meshes.origin.length === amount && resolve();
             },
-            (progress) => {
-                //console.log(`Mesh : ${target.name} Loading...`);
-            },
-            (error) => {
-                console.log(`Mesh : ${target.name} Load Failed.`);
-            }
+            (progress) => {},
+            (error) => {console.log(`Mesh : ${target.name} Load Failed.`)}
         );
     });
 };
 
-export {LoadToScene};
+export { LoadToScene };

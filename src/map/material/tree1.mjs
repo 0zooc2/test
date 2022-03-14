@@ -1,3 +1,3 @@
-export const src = {
-    texture: "default"
+export const attribute = {
+    color: 0xffffff
 };
